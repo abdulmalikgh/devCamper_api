@@ -10,7 +10,8 @@ const bootcamp = require("./routes/bootcamp");
 dotenv.config({ path: "./config/config.env" });
 
 connectDB();
-
+// body-parser middle-ware
+app.use(express.json());
 app.use("/api/v1/bootcamps", bootcamp);
 const PORT = process.env.PORT || 5000;
 
