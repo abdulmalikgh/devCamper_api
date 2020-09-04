@@ -18,21 +18,23 @@ exports.getBootcamps = async (req, res, next) => {
 //@desc Get a bootcamp
 //@route GET /api/v1/bootcamp/:id
 //@access public
-exports.getBootcamp = (req, res, next) => {
+exports.getBootcamp = async (req, res, next) => {
 	try {
-		const bootcamp = await Bootcamp.findById(req.params.id)
+		const bootcamp = await Bootcamp.findById(req.params.id);
 
+		if (!bootcamp) {
+			return res.status(400).json({
+				success: false,
+			});
+		}
 		res.status(200).json({
 			success: true,
-			data: bootcamp
-		})
-
+			data: bootcamp,
+		});
 	} catch (error) {
-
 		res.status(400).json({
 			success: false,
-		})
-		
+		});
 	}
 };
 
@@ -51,10 +53,19 @@ exports.createBootcamp = async (req, res, next) => {
 //@desc Update a bootcamp
 //@route PUT /api/v1/bootcamps
 //@access private
-exports.updateBootcamp = (req, res, next) => {
+exports.updateBootcamp = async (req, res, next) => {
+	const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
+		new: true,
+		runValidators: true,
+	});
+
+	if (!bootcamp) {
+		return res.status(400).json({ success: false });
+	}
+
 	res.status(200).json({
 		success: true,
-		msg: `Update bootcamps ${req.params.id}`,
+		data: bootcamp,
 	});
 };
 
