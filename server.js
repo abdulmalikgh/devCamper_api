@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 const app = express();
 const connectDB = require("./config/db.js");
 const colors = require("colors");
-const errorHandler = require("./")
 // load router files
 const bootcamp = require("./routes/bootcamp");
 // load env configurations
@@ -16,10 +15,13 @@ app.use(express.json());
 app.use("/api/v1/bootcamps", bootcamp);
 const PORT = process.env.PORT || 5000;
 
+<<<<<<< HEAD
 if(process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'))
 }
 
+=======
+>>>>>>> 85329949120278651ba0d1b972a20b340fa282f9
 const server = app.listen(
 	PORT,
 	console.log(
@@ -29,7 +31,14 @@ const server = app.listen(
 );
 
 // handle unhandled rejection
+<<<<<<< HEAD
 process.on("unhandledRejection", (err, promise) => {
 	console.log(`Error: ${err.message}`.red);
+=======
+
+process.on("unhandledRejection", (err, promise) => {
+	console.log(`Error: ${err.message}`.red);
+
+>>>>>>> 85329949120278651ba0d1b972a20b340fa282f9
 	server.close(() => process.exit(1));
 });
